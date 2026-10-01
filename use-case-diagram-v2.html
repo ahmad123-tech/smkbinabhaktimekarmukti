@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Use Case Diagram - SMK Bina Bhakti</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', 'Segoe UI', sans-serif; background: #f1f5f9; display: flex; flex-direction: column; align-items: center; padding: 40px 20px; }
+    h1 { font-size: 24px; font-weight: 700; color: #1e293b; margin-bottom: 8px; }
+    p { font-size: 14px; color: #64748b; margin-bottom: 30px; text-align: center;}
+    .diagram-container { background: white; border-radius: 16px; box-shadow: 0 4px 24px rgba(0,0,0,0.10); padding: 30px; overflow-x: auto; max-width: 100%; border: 1px solid #e2e8f0; }
+    svg text { font-family: 'Inter', 'Segoe UI', sans-serif; }
+    
+    /* Hover effects for interactivity */
+    .uc:hover ellipse { fill: #fdf2f8 !important; stroke: #ec4899 !important; }
+    .uc:hover text { fill: #be185d !important; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <h1>Use Case Diagram (All 5 Actors)</h1>
+  <p>Sistem Informasi Keterserapan Lulusan dan Bursa Kerja — Melibatkan <b>Super Admin, Admin/BKK, Lulusan, Mitra DUDI, & Kepala Sekolah</b></p>
+  
+  <div class="diagram-container">
+    <svg width="1200" height="980" xmlns="http://www.w3.org/2000/svg">
+      
+      <!--===================== SYSTEM BOUNDARY =====================-->
+      <rect x="250" y="50" width="700" height="880" rx="16" ry="16" fill="#f8fafc" stroke="#94a3b8" stroke-width="2.5" stroke-dasharray="8,4"/>
+      <text x="600" y="80" text-anchor="middle" font-size="16" font-weight="700" fill="#475569">Sistem Informasi Keterserapan Lulusan &amp; Bursa Kerja</text>
+
+      <!--===================== USE CASES =====================-->
+
+      <!-- Shared Login (Center Top) -->
+      <g class="uc">
+        <ellipse cx="600" cy="130" rx="100" ry="26" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5"/>
+        <text x="600" y="135" text-anchor="middle" font-size="13" font-weight="600" fill="#334155">Login / Autentikasi</text>
+      </g>
+
+      <!-- ======== LEFT SIDE: Super Admin + Admin/BKK + Kepsek ======== -->
+
+      <!-- SUPER ADMIN USE CASES -->
+      <g class="uc">
+        <ellipse cx="400" cy="200" rx="110" ry="24" fill="#e0e7ff" stroke="#4f46e5" stroke-width="1.5"/>
+        <text x="400" y="205" text-anchor="middle" font-size="12" fill="#3730a3">Kelola Master (Akun & Jurusan)</text>
+      </g>
+      <g class="uc">
+        <ellipse cx="400" cy="260" rx="110" ry="24" fill="#e0e7ff" stroke="#4f46e5" stroke-width="1.5"/>
+        <text x="400" y="265" text-anchor="middle" font-size="12" fill="#3730a3">Pantau Data (BKK & Tracer)</text>
+      </g>
+
+      <!-- ADMIN/BKK USE CASES -->
+      <g class="uc">
+        <ellipse cx="400" cy="370" rx="115" ry="24" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+        <text x="400" y="375" text-anchor="middle" font-size="12" fill="#166534">Kelola Data Lulusan (CRUD & Import)</text>
+      </g>
+      <g class="uc">
+        <ellipse cx="400" cy="430" rx="115" ry="24" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+        <text x="400" y="435" text-anchor="middle" font-size="12" fill="#166534">Verifikasi & Kelola Tracer Study</text>
+      </g>
+      <g class="uc">
+        <ellipse cx="400" cy="490" rx="115" ry="24" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+        <text x="400" y="495" text-anchor="middle" font-size="12" fill="#166534">Kelola Perusahaan Terdaftar</text>
+      </g>
+      <g class="uc">
+        <ellipse cx="400" cy="550" rx="115" ry="24" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+        <text x="400" y="555" text-anchor="middle" font-size="12" fill="#166534">Kelola Lowongan BKK</text>
+      </g>
+      <g class="uc">
+        <ellipse cx="400" cy="610" rx="115" ry="24" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+        <text x="400" y="615" text-anchor="middle" font-size="12" fill="#166534">Kirim Notifikasi / WA Broadcast</text>
+      </g>
+
+      <!-- KEPALA SEKOLAH USE CASES -->
+      <g class="uc">
+        <ellipse cx="400" cy="740" rx="110" ry="24" fill="#fce7f3" stroke="#db2777" stroke-width="1.5"/>
+        <text x="400" y="745" text-anchor="middle" font-size="12" fill="#9d174d">Lihat Dashboard & Statistik</text>
+      </g>
+      <g class="uc">
+        <ellipse cx="400" cy="800" rx="110" ry="24" fill="#fce7f3" stroke="#db2777" stroke-width="1.5"/>
+        <text x="400" y="805" text-anchor="middle" font-size="12" fill="#9d174d">Lihat Peta Persebaran Lulusan</text>
+      </g>
+      <!-- Shared Export / Report -->
+      <g class="uc">
+        <ellipse cx="600" cy="880" rx="110" ry="24" fill="#f3f4f6" stroke="#4b5563" stroke-width="1.5" stroke-dasharray="4,2"/>
+        <text x="600" y="885" text-anchor="middle" font-size="12" font-weight="600" fill="#374151">Cetak & Export Laporan Excel</text>
+      </g>
+
+
+      <!-- ======== RIGHT SIDE: Mitra DUDI + Lulusan ======== -->
+
+      <!-- PERUSAHAAN (MITRA DUDI) -->
+      <g class="uc">
+        <ellipse cx="800" cy="250" rx="110" ry="24" fill="#fef9c3" stroke="#ca8a04" stroke-width="1.5"/>
+        <text x="800" y="255" text-anchor="middle" font-size="12" fill="#78350f">Lengkapi Profil Perusahaan (DUDI)</text>
+      </g>
+      <g class="uc">
+        <ellipse cx="800" cy="310" rx="110" ry="24" fill="#fef9c3" stroke="#ca8a04" stroke-width="1.5"/>
+        <text x="800" y="315" text-anchor="middle" font-size="12" fill="#78350f">Posting Lowongan Pekerjaan</text>
+      </g>
+      <g class="uc">
+        <ellipse cx="800" cy="370" rx="110" ry="24" fill="#fef9c3" stroke="#ca8a04" stroke-width="1.5"/>
+        <text x="800" y="375" text-anchor="middle" font-size="12" fill="#78350f">Review Data Pelamar (CV)</text>
+      </g>
+
+      <!-- LULUSAN -->
+      <g class="uc">
+        <ellipse cx="800" cy="510" rx="110" ry="24" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5"/>
+        <text x="800" y="515" text-anchor="middle" font-size="12" fill="#1e40af">Update Biodata Profil</text>
+      </g>
+      <g class="uc">
+        <ellipse cx="800" cy="570" rx="110" ry="24" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5"/>
+        <text x="800" y="575" text-anchor="middle" font-size="12" fill="#1e40af">Isi Kuesioner Tracer Study</text>
+      </g>
+      <g class="uc">
+        <ellipse cx="800" cy="630" rx="110" ry="24" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5"/>
+        <text x="800" y="635" text-anchor="middle" font-size="12" fill="#1e40af">Cari & Lihat Lowongan Tersedia</text>
+      </g>
+      <g class="uc">
+        <ellipse cx="800" cy="720" rx="110" ry="24" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5"/>
+        <text x="800" y="725" text-anchor="middle" font-size="12" fill="#1e40af">Apply / Melamar Pekerjaan</text>
+      </g>
+      <g class="uc">
+        <ellipse cx="800" cy="780" rx="110" ry="24" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5"/>
+        <text x="800" y="785" text-anchor="middle" font-size="12" fill="#1e40af">Pantau Status Lamaran</text>
+      </g>
+
+      <!-- Include relation Melamar -> Lihat Lowongan -->
+      <line x1="800" y1="696" x2="800" y2="656" stroke="#6366f1" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arrow)"/>
+      <text x="815" y="680" font-size="11" font-weight="600" fill="#6366f1">«include»</text>
+
+      <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#6366f1" />
+        </marker>
+      </defs>
+
+      <!--===================== ACTORS =====================-->
+      
+      <!-- Super Admin (Top Left) -->
+      <circle cx="100" cy="220" r="22" fill="none" stroke="#4f46e5" stroke-width="2.5"/>
+      <line x1="100" y1="242" x2="100" y2="290" stroke="#4f46e5" stroke-width="2.5"/>
+      <line x1="60" y1="260" x2="140" y2="260" stroke="#4f46e5" stroke-width="2.5"/>
+      <line x1="100" y1="290" x2="60" y2="330" stroke="#4f46e5" stroke-width="2.5"/>
+      <line x1="100" y1="290" x2="140" y2="330" stroke="#4f46e5" stroke-width="2.5"/>
+      <text x="100" y="355" text-anchor="middle" font-size="14" font-weight="700" fill="#4f46e5">Super Admin</text>
+      
+      <!-- Admin / BKK (Middle Left) -->
+      <circle cx="100" cy="460" r="22" fill="none" stroke="#16a34a" stroke-width="2.5"/>
+      <line x1="100" y1="482" x2="100" y2="530" stroke="#16a34a" stroke-width="2.5"/>
+      <line x1="60" y1="500" x2="140" y2="500" stroke="#16a34a" stroke-width="2.5"/>
+      <line x1="100" y1="530" x2="60" y2="570" stroke="#16a34a" stroke-width="2.5"/>
+      <line x1="100" y1="530" x2="140" y2="570" stroke="#16a34a" stroke-width="2.5"/>
+      <text x="100" y="595" text-anchor="middle" font-size="14" font-weight="700" fill="#16a34a">Admin / BKK</text>
+
+      <!-- Kepsek (Bottom Left) -->
+      <circle cx="100" cy="740" r="22" fill="none" stroke="#db2777" stroke-width="2.5"/>
+      <line x1="100" y1="762" x2="100" y2="810" stroke="#db2777" stroke-width="2.5"/>
+      <line x1="60" y1="780" x2="140" y2="780" stroke="#db2777" stroke-width="2.5"/>
+      <line x1="100" y1="810" x2="60" y2="850" stroke="#db2777" stroke-width="2.5"/>
+      <line x1="100" y1="810" x2="140" y2="850" stroke="#db2777" stroke-width="2.5"/>
+      <text x="100" y="875" text-anchor="middle" font-size="14" font-weight="700" fill="#db2777">Kepala Sekolah</text>
+
+      <!-- Perusahaan (Top Right) -->
+      <circle cx="1100" cy="300" r="22" fill="none" stroke="#ca8a04" stroke-width="2.5"/>
+      <line x1="1100" y1="322" x2="1100" y2="370" stroke="#ca8a04" stroke-width="2.5"/>
+      <line x1="1060" y1="340" x2="1140" y2="340" stroke="#ca8a04" stroke-width="2.5"/>
+      <line x1="1100" y1="370" x2="1060" y2="410" stroke="#ca8a04" stroke-width="2.5"/>
+      <line x1="1100" y1="370" x2="1140" y2="410" stroke="#ca8a04" stroke-width="2.5"/>
+      <text x="1100" y="435" text-anchor="middle" font-size="14" font-weight="700" fill="#ca8a04">Mitra DUDI</text>
+
+      <!-- Lulusan (Bottom Right) -->
+      <circle cx="1100" cy="620" r="22" fill="none" stroke="#3b82f6" stroke-width="2.5"/>
+      <line x1="1100" y1="642" x2="1100" y2="690" stroke="#3b82f6" stroke-width="2.5"/>
+      <line x1="1060" y1="660" x2="1140" y2="660" stroke="#3b82f6" stroke-width="2.5"/>
+      <line x1="1100" y1="690" x2="1060" y2="730" stroke="#3b82f6" stroke-width="2.5"/>
+      <line x1="1100" y1="690" x2="1140" y2="730" stroke="#3b82f6" stroke-width="2.5"/>
+      <text x="1100" y="755" text-anchor="middle" font-size="14" font-weight="700" fill="#3b82f6">Lulusan</text>
+
+
+      <!--===================== CONNECTION LINES =====================-->
+      <!-- Login connections -->
+      <path d="M 100 200 Q 200 130 500 130" fill="none" stroke="#4f46e5" stroke-width="1.2"/>
+      <path d="M 100 440 Q 200 130 500 130" fill="none" stroke="#16a34a" stroke-width="1.2"/>
+      <path d="M 100 720 Q 150 130 500 130" fill="none" stroke="#db2777" stroke-width="1.2" stroke-opacity="0.5"/>
+      <path d="M 1100 280 Q 950 130 700 130" fill="none" stroke="#ca8a04" stroke-width="1.2"/>
+      <path d="M 1100 600 Q 900 130 700 130" fill="none" stroke="#3b82f6" stroke-width="1.2" stroke-opacity="0.5"/>
+
+      <!-- Super Admin Connections -->
+      <line x1="130" y1="230" x2="290" y2="200" stroke="#4f46e5" stroke-width="1.2"/>
+      <line x1="130" y1="230" x2="290" y2="260" stroke="#4f46e5" stroke-width="1.2"/>
+      <path d="M 130 230 Q 200 450 490 880" fill="none" stroke="#4f46e5" stroke-width="1.2" stroke-dasharray="2,2"/> <!-- To Report -->
+
+      <!-- Admin Connections -->
+      <line x1="130" y1="475" x2="285" y2="370" stroke="#16a34a" stroke-width="1.2"/>
+      <line x1="130" y1="475" x2="285" y2="430" stroke="#16a34a" stroke-width="1.2"/>
+      <line x1="130" y1="475" x2="285" y2="490" stroke="#16a34a" stroke-width="1.2"/>
+      <line x1="130" y1="475" x2="285" y2="550" stroke="#16a34a" stroke-width="1.2"/>
+      <line x1="130" y1="475" x2="285" y2="610" stroke="#16a34a" stroke-width="1.2"/>
+      <path d="M 130 475 Q 300 750 490 880" fill="none" stroke="#16a34a" stroke-width="1.2" stroke-dasharray="2,2"/>
+
+      <!-- Kepsek Connections -->
+      <line x1="130" y1="755" x2="290" y2="740" stroke="#db2777" stroke-width="1.2"/>
+      <line x1="130" y1="755" x2="290" y2="800" stroke="#db2777" stroke-width="1.2"/>
+      <line x1="130" y1="755" x2="490" y2="880" stroke="#db2777" stroke-width="1.2"/>
+
+      <!-- Perusahaan Connections -->
+      <line x1="1070" y1="315" x2="910" y2="250" stroke="#ca8a04" stroke-width="1.2"/>
+      <line x1="1070" y1="315" x2="910" y2="310" stroke="#ca8a04" stroke-width="1.2"/>
+      <line x1="1070" y1="315" x2="910" y2="370" stroke="#ca8a04" stroke-width="1.2"/>
+
+      <!-- Lulusan Connections -->
+      <line x1="1070" y1="635" x2="910" y2="510" stroke="#3b82f6" stroke-width="1.2"/>
+      <line x1="1070" y1="635" x2="910" y2="570" stroke="#3b82f6" stroke-width="1.2"/>
+      <line x1="1070" y1="635" x2="910" y2="630" stroke="#3b82f6" stroke-width="1.2"/>
+      <line x1="1070" y1="635" x2="910" y2="720" stroke="#3b82f6" stroke-width="1.2"/>
+      <line x1="1070" y1="635" x2="910" y2="780" stroke="#3b82f6" stroke-width="1.2"/>
+      
+    </svg>
+  </div>
+</body>
+</html>

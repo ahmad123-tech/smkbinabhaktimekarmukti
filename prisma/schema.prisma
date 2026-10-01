@@ -1,0 +1,151 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  LULUSAN
+  PERUSAHAAN
+  KEPALA_SEKOLAH
+}
+
+enum StatusLulusan {
+  BEKERJA
+  KULIAH
+  WIRAUSAHA
+  BELUM_BEKERJA
+}
+
+model User {
+  id         String      @id @default(cuid())
+  email      String      @unique
+  password   String
+  role       Role
+  createdAt  DateTime    @default(now())
+  lulusan    Lulusan?
+  perusahaan Perusahaan?
+}
+
+model Jurusan {
+  id       String     @id @default(cuid())
+  nomorId  Int        @default(autoincrement())
+  kode     String     @unique
+  nama     String     @unique
+  lulusan  Lulusan[]
+  lowongan Lowongan[]
+}
+
+model Lulusan {
+  id          String       @id @default(cuid())
+  userId      String       @unique
+  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  nis         String       @unique
+  nama        String
+  jurusanId   String
+  jurusan     Jurusan      @relation(fields: [jurusanId], references: [id])
+  tahunLulus  Int
+  noHp        String?
+  alamat      String?
+  tracerStudy TracerStudy?
+  lamaran     Lamaran[]
+  createdAt   DateTime     @default(now())
+}
+
+model TracerStudy {
+  id                String        @id @default(cuid())
+  lulusanId         String        @unique
+  lulusan           Lulusan       @relation(fields: [lulusanId], references: [id], onDelete: Cascade)
+  status            StatusLulusan
+  // Data Pekerjaan
+  pernahMelamar     String?
+  jenisPekerjaan    String?
+  namaPerusahaan    String?
+  alamatInstansi    String?
+  jabatan           String?
+  deskripsiPekerjaan String?
+  masaKerja         String?
+  mulaiKerja        String?
+  sesuaiKeahlian    String?
+  masaTunggu        String?
+  gaji              String?
+  lokasiKerja       String?
+  latitude          Float?
+  longitude         Float?
+  // Data Kuliah
+  namaKampus        String?
+  alamatUniversitas String?
+  jurusanStudi      String?
+  bulanTahunStudi   String?
+  // Wirausaha
+  namaUsaha         String?
+  keterangan        String?
+  updatedAt         DateTime      @updatedAt
+  createdAt         DateTime      @default(now())
+}
+
+model Perusahaan {
+  id        String     @id @default(cuid())
+  userId    String     @unique
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  nama      String
+  bidang    String?
+  alamat    String?
+  kota      String?
+  telepon   String?
+  website   String?
+  deskripsi String?
+  latitude  Float?
+  longitude Float?
+  lowongan  Lowongan[]
+  createdAt DateTime   @default(now())
+}
+
+model Lowongan {
+  id           String     @id @default(cuid())
+  perusahaanId String
+  perusahaan   Perusahaan @relation(fields: [perusahaanId], references: [id], onDelete: Cascade)
+  jurusanId    String?
+  jurusan      Jurusan?   @relation(fields: [jurusanId], references: [id])
+  judul        String
+  deskripsi    String
+  persyaratan  String?
+  gaji         String?
+  deadline     DateTime?
+  isActive     Boolean    @default(true)
+  lamaran      Lamaran[]
+  createdAt    DateTime   @default(now())
+}
+
+model Lamaran {
+  id         String   @id @default(cuid())
+  lulusanId  String
+  lulusan    Lulusan  @relation(fields: [lulusanId], references: [id], onDelete: Cascade)
+  lowonganId String
+  lowongan   Lowongan @relation(fields: [lowonganId], references: [id], onDelete: Cascade)
+  status     String   @default("MENUNGGU")
+  createdAt  DateTime @default(now())
+
+  @@unique([lulusanId, lowonganId])
+}
+
+
+model Pengaturan {
+  id       String @id @default("1")
+  alamat   String? @default("Jl. Contoh No. 1, Mekarmukti")
+  email    String? @default("bkk@smkbinabhakti.sch.id")
+  whatsapp String? @default("6281234567890")
+  telepon  String? @default("022-1234567")
+}
+
+model PasswordResetToken {
+  id        String   @id @default(cuid())
+  email     String
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}

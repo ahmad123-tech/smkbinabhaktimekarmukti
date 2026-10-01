@@ -1,0 +1,537 @@
+@startuml 1_Kelola_Akun_Super_Admin
+|Super Admin|
+start
+:Pilih menu Kelola Akun;
+|Sistem|
+:Tampilkan daftar akun pengguna;
+|Super Admin|
+:Tambah, ubah, atau hapus data akun;
+|Sistem|
+:Validasi data;
+if (Data valid?) then (Ya)
+  :Simpan perubahan ke basis data;
+  :Tampilkan pesan berhasil;
+else (Tidak)
+  :Tampilkan pesan kesalahan;
+endif
+stop
+@enduml
+
+@startuml 2_Kelola_Data_Lulusan_Super_Admin
+|Super Admin|
+start
+:Buka menu Data Lulusan;
+|Sistem|
+:Tampilkan seluruh data lulusan;
+|Super Admin|
+:Melihat data (pemantauan/pengawasan);
+|Sistem|
+:Tampilkan informasi lulusan kepada pengguna;
+stop
+@enduml
+
+@startuml 3_Tambah_Jurusan_Super_Admin
+|Super Admin|
+start
+:Pilih menu Tambah Jurusan;
+|Sistem|
+:Buat ID Jurusan secara otomatis;
+:Tampilkan formulir penambahan jurusan;
+|Super Admin|
+:Tulis manual Kode Jurusan dan Nama Jurusan;
+:Pilih tombol simpan;
+|Sistem|
+:Validasi data;
+if (Data valid?) then (Ya)
+  :Simpan data jurusan ke basis data;
+  :Tampilkan notifikasi berhasil ditambahkan;
+else (Tidak)
+  :Tampilkan pesan kesalahan;
+endif
+stop
+@enduml
+
+@startuml 4_Edit_Jurusan_Super_Admin
+|Super Admin|
+start
+:Pilih data jurusan yang akan diubah;
+|Sistem|
+:Tampilkan formulir edit jurusan;
+|Super Admin|
+:Perbarui data (Kode Jurusan dapat diedit beserta Nama Jurusan);
+:Simpan perubahan;
+|Sistem|
+:Validasi data;
+if (Data valid?) then (Ya)
+  :Perbarui data jurusan pada basis data;
+  :Tampilkan notifikasi perubahan berhasil;
+else (Tidak)
+  :Tampilkan pesan kesalahan;
+endif
+stop
+@enduml
+
+@startuml 5_Hapus_Jurusan_Super_Admin
+|Super Admin|
+start
+:Pilih data jurusan yang akan dihapus;
+|Sistem|
+:Tampilkan konfirmasi penghapusan;
+|Super Admin|
+if (Setujui?) then (Ya)
+  |Sistem|
+  :Hapus data jurusan dari basis data;
+  :Tampilkan pesan data berhasil dihapus;
+else (Tidak)
+  |Super Admin|
+  :Batal;
+endif
+stop
+@enduml
+
+@startuml 6_Kelola_Lowongan_Kerja_Super_Admin
+|Super Admin|
+start
+:Buka menu Kelola Lowongan Kerja;
+|Sistem|
+:Tampilkan seluruh data lowongan kerja;
+|Super Admin|
+:Memantau informasi lowongan kerja;
+stop
+@enduml
+
+@startuml 7_Kelola_Notifikasi_Super_Admin
+|Super Admin|
+start
+:Pilih menu Kelola Notifikasi;
+|Sistem|
+:Tampilkan daftar notifikasi yang tersedia;
+|Super Admin|
+:Pemantauan terhadap informasi/pemberitahuan;
+stop
+@enduml
+
+@startuml 8_Kelola_Perusahaan_Super_Admin
+|Super Admin|
+start
+:Buka menu Kelola Perusahaan;
+|Sistem|
+:Tampilkan daftar perusahaan (DUDI) terdaftar;
+|Super Admin|
+:Melihat dan mengawasi data perusahaan;
+stop
+@enduml
+
+@startuml 9_Kelola_Tracer_Study_Super_Admin
+|Super Admin|
+start
+:Pilih menu Kelola Tracer Study;
+|Sistem|
+:Tampilkan seluruh data tracer study;
+|Super Admin|
+:Pemantauan hasil tracer study;
+stop
+@enduml
+
+@startuml 10_Tambah_Data_Lulusan_Admin
+|Admin|
+start
+:Pilih menu Tambah Data Lulusan;
+|Sistem|
+:Tampilkan formulir penambahan data lulusan;
+|Admin|
+:Isi seluruh informasi lulusan;
+:Simpan data;
+|Sistem|
+:Validasi data input;
+if (Data valid?) then (Ya)
+  :Simpan data ke basis data;
+  :Tampilkan notifikasi data berhasil ditambahkan;
+else (Tidak)
+  :Tampilkan pesan kesalahan;
+endif
+stop
+@enduml
+
+@startuml 11_Import_Data_Lulusan_Admin
+|Admin|
+start
+:Pilih menu Import Data Lulusan;
+|Sistem|
+:Tampilkan halaman unggah berkas Excel;
+|Admin|
+:Pilih file yang akan diunggah;
+|Sistem|
+:Validasi format dan isi file;
+if (File valid?) then (Ya)
+  :Impor data lulusan ke basis data;
+  :Tampilkan notifikasi impor berhasil;
+else (Tidak)
+  :Tampilkan pesan kesalahan;
+endif
+stop
+@enduml
+
+@startuml 12_Hapus_Data_Lulusan_Admin
+|Admin|
+start
+:Pilih data lulusan yang akan dihapus;
+|Sistem|
+:Tampilkan konfirmasi penghapusan;
+|Admin|
+if (Setujui?) then (Ya)
+  |Sistem|
+  :Hapus data dari basis data;
+  :Tampilkan notifikasi data lulusan berhasil dihapus;
+else (Tidak)
+  |Admin|
+  :Batal;
+endif
+stop
+@enduml
+
+@startuml 13_Tambah_Lowongan_Kerja_Admin
+|Admin|
+start
+:Pilih menu Tambah Lowongan Kerja;
+|Sistem|
+:Tampilkan formulir penambahan lowongan kerja;
+|Admin|
+:Isi informasi lowongan;
+:Simpan data;
+|Sistem|
+:Validasi data;
+if (Data valid?) then (Ya)
+  :Simpan data lowongan;
+  :Tampilkan notifikasi berhasil ditambahkan;
+else (Tidak)
+  :Tampilkan pesan kesalahan;
+endif
+stop
+@enduml
+
+@startuml 14_Edit_Lowongan_Kerja_Admin
+|Admin|
+start
+:Pilih data lowongan kerja;
+|Sistem|
+:Tampilkan formulir edit;
+|Admin|
+:Simpan perubahan;
+|Sistem|
+:Validasi data;
+if (Data valid?) then (Ya)
+  :Perbarui informasi pada basis data;
+  :Tampilkan notifikasi perubahan berhasil di simpan;
+else (Tidak)
+  :Tampilkan pesan kesalahan;
+endif
+stop
+@enduml
+
+@startuml 15_Hapus_Lowongan_Kerja_Admin
+|Admin|
+start
+:Pilih data lowongan kerja yang dihapus;
+|Sistem|
+:Tampilkan konfirmasi penghapusan;
+|Admin|
+if (Setujui?) then (Ya)
+  |Sistem|
+  :Hapus data;
+  :Tampilkan notifikasi berhasil dihapus;
+else (Tidak)
+  |Admin|
+  :Batal;
+endif
+stop
+@enduml
+
+@startuml 16_Kirim_Notifikasi_Admin
+|Admin|
+start
+:Buka menu Notifikasi;
+:Pilih Kirim Pesan;
+:Tulis isi pesan dan kirim;
+|Sistem|
+:Validasi data pesan;
+if (Data valid?) then (Ya)
+  :Kirim notifikasi kepada penerima;
+  :Tampilkan informasi pesan berhasil dikirim;
+else (Tidak)
+  :Tampilkan pesan kesalahan;
+endif
+stop
+@enduml
+
+@startuml 17_Tambah_Perusahaan_Admin
+|Admin|
+start
+:Pilih menu Tambah Perusahaan;
+|Sistem|
+:Tampilkan formulir penambahan perusahaan;
+|Admin|
+:Isi data dan simpan;
+|Sistem|
+:Validasi data;
+if (Data valid?) then (Ya)
+  :Simpan data perusahaan;
+  :Tampilkan notifikasi data berhasil ditambahkan;
+else (Tidak)
+  :Tampilkan pesan kesalahan;
+endif
+stop
+@enduml
+
+@startuml 18_Edit_Perusahaan_Admin
+|Admin|
+start
+:Pilih data perusahaan yang akan diubah;
+|Sistem|
+:Tampilkan formulir edit perusahaan;
+|Admin|
+:Perbarui dan simpan perubahan;
+|Sistem|
+:Validasi data;
+if (Data valid?) then (Ya)
+  :Perbarui informasi pada basis data;
+  :Tampilkan notifikasi perubahan berhasil;
+else (Tidak)
+  :Tampilkan pesan kesalahan;
+endif
+stop
+@enduml
+
+@startuml 19_Hapus_Perusahaan_Admin
+|Admin|
+start
+:Pilih data perusahaan yang dihapus;
+|Sistem|
+:Minta konfirmasi penghapusan;
+|Admin|
+if (Disetujui?) then (Ya)
+  |Sistem|
+  :Hapus data perusahaan;
+  :Tampilkan notifikasi penghapusan berhasil;
+else (Tidak)
+  |Admin|
+  :Batal;
+endif
+stop
+@enduml
+
+@startuml 20_Unduh_Data_Tracer_Study_Admin
+|Admin|
+start
+:Pilih menu Unduh Data Tracer Study;
+|Sistem|
+:Tampilkan pilihan format unduhan;
+|Admin|
+:Pilih format;
+|Sistem|
+:Hasilkan berkas laporan;
+:Unduh data tracer study ke perangkat;
+stop
+@enduml
+
+@startuml 21_Unduh_Laporan_Keterserapan_Lulusan_Kepsek
+|Kepala Sekolah|
+start
+:Pilih menu Unduh Laporan Keterserapan Lulusan;
+|Sistem|
+:Hasilkan laporan berdasarkan data;
+:Unduh laporan ke perangkat pengguna;
+stop
+@enduml
+
+@startuml 22_Unduh_Data_Lulusan_Kepsek
+|Kepala Sekolah|
+start
+:Pilih menu Unduh Data Lulusan;
+|Sistem|
+:Siapkan data lulusan dalam format yang dipilih;
+:Unduh data ke perangkat pengguna;
+stop
+@enduml
+
+@startuml 23_Lihat_Peta_Sebaran_Kepsek
+|Kepala Sekolah|
+start
+:Pilih menu Lihat Peta Sebaran;
+|Sistem|
+:Ambil data lokasi kerja lulusan dari basis data;
+:Tampilkan peta persebaran lulusan beserta titik lokasi;
+|Kepala Sekolah|
+:Lihat distribusi lokasi kerja lulusan;
+stop
+@enduml
+
+@startuml 24_Edit_Profil_Lulusan
+|Lulusan|
+start
+:Buka menu Profil;
+:Pilih Edit Profil;
+|Sistem|
+:Tampilkan formulir edit profil;
+|Lulusan|
+:Perbarui data dan simpan;
+|Sistem|
+:Validasi data;
+if (Data valid?) then (Ya)
+  :Simpan perubahan;
+  :Tampilkan notifikasi profil berhasil diperbarui;
+else (Tidak)
+  :Tampilkan pesan kesalahan;
+endif
+stop
+@enduml
+
+@startuml 25_Isi_Tracer_Study_Lulusan
+|Lulusan|
+start
+:Pilih menu Isi Tracer Study;
+|Sistem|
+:Tampilkan formulir tracer study;
+|Lulusan|
+:Isi seluruh data dan kirim;
+|Sistem|
+:Validasi data;
+if (Data valid?) then (Ya)
+  :Simpan ke basis data;
+  :Tampilkan notifikasi berhasil dikirim;
+else (Tidak)
+  :Tampilkan pesan kesalahan;
+endif
+stop
+@enduml
+
+@startuml 26_Edit_Tracer_Study_Lulusan
+|Lulusan|
+start
+:Pilih menu Edit Tracer Study;
+|Sistem|
+:Tampilkan data tracer study tersimpan;
+|Lulusan|
+:Perbarui informasi dan simpan;
+|Sistem|
+:Validasi data;
+if (Data valid?) then (Ya)
+  :Perbarui basis data;
+  :Tampilkan notifikasi berhasil diperbarui;
+else (Tidak)
+  :Tampilkan pesan kesalahan;
+endif
+stop
+@enduml
+
+@startuml 27_Lihat_Lowongan_Kerja_Lulusan
+|Lulusan|
+start
+:Pilih menu Lowongan Kerja;
+|Sistem|
+:Ambil data lowongan dari basis data;
+:Tampilkan data lowongan;
+|Lulusan|
+:Melihat informasi lowongan kerja;
+stop
+@enduml
+
+@startuml 28_Edit_Biodata_Perusahaan_DUDI
+|DUDI|
+start
+:Pilih menu Edit Biodata Perusahaan;
+|Sistem|
+:Tampilkan formulir biodata;
+|DUDI|
+:Perbarui data dan simpan;
+|Sistem|
+:Validasi data;
+if (Data valid?) then (Ya)
+  :Perbarui informasi di basis data;
+  :Tampilkan notifikasi biodata berhasil diperbarui;
+else (Tidak)
+  :Tampilkan pesan kesalahan;
+endif
+stop
+@enduml
+
+@startuml 29_Tambah_Lowongan_Kerja_DUDI
+|DUDI|
+start
+:Pilih menu Tambah Lowongan Kerja;
+|Sistem|
+:Tampilkan formulir penambahan lowongan kerja;
+|DUDI|
+:Isi data dan simpan;
+|Sistem|
+:Validasi data;
+if (Data valid?) then (Ya)
+  :Simpan informasi lowongan kerja;
+  :Tampilkan notifikasi berhasil ditambahkan;
+else (Tidak)
+  :Tampilkan pesan kesalahan;
+endif
+stop
+@enduml
+
+@startuml 30_Edit_Lowongan_Kerja_DUDI
+|DUDI|
+start
+:Pilih data lowongan kerja diubah;
+|Sistem|
+:Tampilkan formulir edit;
+|DUDI|
+:Simpan perubahan;
+|Sistem|
+:Validasi data;
+if (Data valid?) then (Ya)
+  :Perbarui informasi di basis data;
+  :Tampilkan notifikasi perubahan berhasil;
+else (Tidak)
+  :Tampilkan pesan kesalahan;
+endif
+stop
+@enduml
+
+@startuml 31_Hapus_Lowongan_Kerja_DUDI
+|DUDI|
+start
+:Pilih data lowongan kerja dihapus;
+|Sistem|
+:Tampilkan konfirmasi penghapusan;
+|DUDI|
+if (Setujui?) then (Ya)
+  |Sistem|
+  :Hapus data dari basis data;
+  :Tampilkan notifikasi proses berhasil;
+else (Tidak)
+  |DUDI|
+  :Batal;
+endif
+stop
+@enduml
+
+@startuml 32_Edit_Pengaturan_Admin
+|Admin|
+start
+:Pilih menu Pengaturan;
+|Sistem|
+:Tampilkan informasi kontak BKK (mode lihat);
+|Admin|
+:Klik tombol Edit Pengaturan;
+|Sistem|
+:Aktifkan formulir pengaturan;
+|Admin|
+:Ubah data kontak BKK yang diperlukan;
+:Pilih tombol Simpan Perubahan;
+|Sistem|
+:Validasi data;
+if (Data valid?) then (Ya)
+  :Simpan perubahan ke basis data;
+  :Tampilkan pesan perubahan berhasil disimpan;
+  :Kembali ke mode lihat;
+else (Tidak)
+  :Tampilkan pesan kesalahan;
+endif
+stop
+@enduml

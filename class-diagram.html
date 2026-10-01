@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Class Diagram - Sistem Informasi Keterserapan Lulusan</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f4f8;
+      padding: 40px 20px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 17px;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 4px;
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 12px;
+      color: #64748b;
+      margin-bottom: 36px;
+    }
+
+    .canvas {
+      position: relative;
+      width: 1180px;
+      height: 980px;
+      margin: 0 auto;
+    }
+
+    svg.lines {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      overflow: visible;
+    }
+
+    /* Class box */
+    .cls {
+      position: absolute;
+      background: #fff;
+      border: 2px solid #334155;
+      border-radius: 0;
+      min-width: 200px;
+      font-size: 12px;
+      box-shadow: 3px 3px 0 #cbd5e1;
+    }
+
+    .cls-name {
+      background: #1e293b;
+      color: #fff;
+      text-align: center;
+      font-weight: 700;
+      font-size: 13px;
+      padding: 7px 12px;
+      letter-spacing: 0.5px;
+    }
+
+    .cls-section {
+      border-top: 1.5px solid #334155;
+      padding: 6px 0;
+    }
+
+    .cls-row {
+      display: flex;
+      align-items: center;
+      padding: 3px 12px;
+      gap: 6px;
+      color: #1e293b;
+      font-size: 11.5px;
+    }
+
+    .cls-row:hover { background: #f8fafc; }
+
+    .vis {
+      font-weight: 700;
+      font-size: 12px;
+      width: 12px;
+      flex-shrink: 0;
+      color: #475569;
+    }
+
+    .attr-name { flex: 1; }
+    .attr-type { color: #6366f1; font-style: italic; font-size: 11px; }
+
+    .underline { text-decoration: underline; } /* PK */
+
+    /* method section */
+    .method-row {
+      display: flex;
+      align-items: center;
+      padding: 3px 12px;
+      gap: 6px;
+      color: #1e293b;
+      font-size: 11.5px;
+    }
+
+    .method-row .vis { color: #16a34a; }
+    .method-name { flex: 1; color: #0f172a; }
+    .method-ret  { color: #6366f1; font-style: italic; font-size: 11px; }
+
+    /* section label */
+    .sec-label {
+      font-size: 10px;
+      font-weight: 600;
+      color: #94a3b8;
+      padding: 2px 12px 0;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Legend */
+    .legend {
+      width: 1180px;
+      margin: 24px auto 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      align-items: center;
+      background: #fff;
+      border-radius: 8px;
+      padding: 14px 20px;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.07);
+      border: 1px solid #e2e8f0;
+      font-size: 12px;
+      color: #475569;
+    }
+
+    .legend strong { color: #1e293b; margin-right: 4px; }
+
+    .leg-line {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Class Diagram</h1>
+<p class="subtitle">Sistem Informasi Keterserapan Lulusan &amp; Bursa Kerja — SMK Bina Bhakti</p>
+
+<div class="canvas" id="canvas">
+  <svg class="lines" id="svg"></svg>
+
+  <!-- ===== USER ===== -->
+  <div class="cls" id="cls-user" style="left:60px; top:280px; min-width:210px;">
+    <div class="cls-name">User</div>
+    <div class="cls-section">
+      <div class="sec-label">Attributes</div>
+      <div class="cls-row"><span class="vis">-</span><span class="attr-name underline">id_user</span><span class="attr-type">: String</span></div>
+      <div class="cls-row"><span class="vis">-</span><span class="attr-name">nama</span><span class="attr-type">: String</span></div>
+      <div class="cls-row"><span class="vis">-</span><span class="attr-name">email</span><span class="attr-type">: String</span></div>
+      <div class="cls-row"><span class="vis">-</span><span class="attr-name">password</span><span class="attr-type">: String</span></div>
+      <div class="cls-row"><span class="vis">-</span><span class="attr-name">role</span><span class="attr-type">: String</span></div>
+      <div class="cls-row"><span class="vis">-</span><span class="attr-name">status</span><span class="attr-type">: String</span></div>
+    </div>
+    <div class="cls-section">
+      <div class="sec-label">Methods</div>
+      <div class="method-row"><span class="vis">+</span><span class="method-name">login()</span><span class="method-ret">: Boolean</span></div>
+      <div class="method-row"><span class="vis">+</span><span class="method-name">logout()</span><span class="method-ret">: void</span></div>
+      <div class="method-row"><span class="vis">+</span><span class="method-name">getProfile()</span><span class="method-ret">: User</span></div>
+      <div class="method-row"><span class="vis">+</span><span class="method-name">updateProfile()</span><span class="method-ret">: void</span></div>
+    </div>
+  </div>
+
+  <!-- ===== LULUSAN ===== -->
+  <div class="cls" id="cls-lulusan" style="left:430px; top:260px; min-width:215px;">
+    <div class="cls-name">Lulusan</div>
+    <div class="cls-section">
+      <div class="sec-label">Attributes</div>
+      <div class="cls-row"><span class="vis">-</span><span class="attr-name underline">id_lulusan</span><span class="attr-type">: String</span></div>
+      <div class="cls-row"><span class="vis">-</span><span class="attr-name">id_user</span><span class="attr-type">: String</span></div>
+      <div class="cls-row"><span class="vis">-</span><span class="attr-name">id_jurusan</span><span class="attr-type">: String</span></div>
+      <div class="cls-row"><span class="vis">-</span><span class="attr-name">nis</span><span class="attr-type">: String</span></div>
+      <div class="cls-row"><span class="vis">-</span><span class="attr-name">nama</span><span class="attr-type">: String</span></div>
+      <div class="cls-row"><span class="vis">-</span><span class="attr-name">tahun_lulus</span><span class="attr-type">: Integer</span></div>
+      <div class="cls-row"><span class="vis">-</span><span class="attr-name">no_handphone</span><span class="attr-type">: String</span></div>
+      <div class="cls-row"><span class="vis">-</span><span class="attr-name">alamat</span><span class="attr-type">: String</span></div>
+    </div>
+    <div class="cls-section">
+      <div class="sec-label">Methods</div>
+      <div class="method-row"><span class="vis">+</span><span class="method-name">getProfil()</span><span class="method-ret">: Lulusan</span></div>
+      <div class="method-row"><span class="vis">+</span><span class="method-name">updateProfil()</span><span class="method-ret">: void</span></div>
+      <div class="method-row"><span class="vis">+</span><span class="method-name">getTracerStudy()</span><span class="method-ret">: TracerStudy</span></div>
+      <div class="method-row"><span class="vis">+</span><span class="method-name">getLowongan()</span><span class="method-ret">: List</span></div>
+    </div>
+  </div>
+
+  <!-- ===== JURUSAN ===== -->
+  <div class="cls" id="cls-jurusan" style="left:800px; top:260px; min-width:200px;">
+    <div class="cls-name">Jurusan</div>
+    <div class="cls-section">
+      <div class="sec-label">Attributes</div>
+      <div class="cls-row"><span class="vis">-</span><span class="attr-name underline">id_jurusan</span><span class="attr-type">: String</span></div>
+      <div class="cls-row"><span class="vis">-</span><span class="attr-name">kode_jurusan</span><span class="attr-type">: String</span></div>
+      <div class="cls-row"><span class="vis">-</span><span class="attr-name">nama_jurusan</span><span class="attr-type">: String</span></div>
+    </div>
+    <div class="cls-section">
+      <div class="sec-label">Methods</div>
+      <div class="method-row"><span class="vis">+</span><span class="method-name">getJurusan()</span><span class="method-ret">: Jurusan</span></div>
+      <div class="method-row"><span class="vis">+</span><span class="method-name">tambahJurusan()</span><span class="method-ret">: void</span></div>
+      <div class="method-row"><span class="vis">+</span><span class="method-name">editJurusan()</span><span class="method-ret">: void</span></div>
+      <div class="method-row"><span class="vis">+</span><span class="method-name">hapusJurusan()</span><span class="method-ret">: void</span></div>
+    </div>
+  </div>
+
+  <!-- ===== TRACER STUDY ===== -->
+  <div class="cls" id="cls-tracer" style="left:430px; top:20px; min-width:215px;">
+    <div class="cls-name">TracerStudy</div>
+    <div class="cls-section">
+      <div class="sec-label">Attributes</div>
+      <div class="cls-row"><span class="vis">-</span><span class="attr-name underline">id_tracer</span><span class="attr-type">: String</span></div>
+      <div class="cls-row"><span class="vis">-</span><span class="attr-name">id_lulusan</span><span class="attr-type">: String</span></div>
+      <div class="cls-row"><span class="vis">-</span><span class="attr-name">status</span><span class="attr-type">: String</span></div>
+      <div class="cls-row"><span class="vis">-</span><span class="attr-name">nama_perusahaan</span><span class="attr-type">: String</span></div>
+      <div class="cls-row"><span class="vis">-</span><span class="attr-name">jabatan</span><span class="attr-type">: String</span></div>
+      <div class="cls-row"><span class="vis">-</span><span class="attr-name">gaji</span><span class="attr-type">: Integer</span></div>
+      <div class="cls-row"><span class="vis">-</span><span class="attr-name">alamat_kerja</span><span class="attr-type">: String</span></div>
+      <div class="cls-row"><span class="vis">-</span><span class="attr-name">latitude</span><span class="attr-type">: Float</span></div>
+      <div class="cls-row"><span class="vis">-</span><span class="attr-name">longitude</span><span class="attr-type">: Float</span></div>
+      <div class="cls-row"><span class="vis">-</span><span class="attr-name">tanggal_isi</span><span class="attr-type">: Date</span></div>
+    </div>
+    <div class="cls-section">
+      <div class="sec-label">Methods</div>
+      <div class="method-row"><span class="vis">+</span><span class="method-name">isiTracerStudy()</span><span class="method-ret">: void</span></div>
+      <div class="method-row"><span class="vis">+</span><span class="method-name">editTracerStudy()</span><span class="method-ret">: void</span></div>
+      <div class="method-row"><span class="vis">+</span><span class="method-name">getTracerStudy()</span><span class="method-ret">: TracerStudy</span></div>
+    </div>
+  </div>
+
+  <!-- ===== PERUSAHAAN ===== -->
+  <div class="cls" id="cls-perusahaan" style="left:60px; top:580px; min-width:215px;">
+    <div class="cls-name">Perusahaan</div>
+    <div class="cls-section">
+      <div class="sec-label">Attributes</div>
+      <div class="cls-row"><span class="vis">-</span><span class="attr-name underline">id_perusahaan</span><span class="attr-type">: String</span></div>
+      <div class="cls-row"><span class="vis">-</span><span class="attr-name">id_user</span><span class="attr-type">: String</span></div>
+      <div class="cls-row"><span class="vis">-</span><span class="attr-name">nama_perusahaan</span><span class="attr-type">: String</span></div>
+      <div class="cls-row"><span class="vis">-</span><span class="attr-name">email</span><span class="attr-type">: String</span></div>
+      <div class="cls-row"><span class="vis">-</span><span class="attr-name">no_handphone</span><span class="attr-type">: String</span></div>
+      <div class="cls-row"><span class="vis">-</span><span class="attr-name">alamat</span><span class="attr-type">: String</span></div>
+    </div>
+    <div class="cls-section">
+      <div class="sec-label">Methods</div>
+      <div class="method-row"><span class="vis">+</span><span class="method-name">getProfil()</span><span class="method-ret">: Perusahaan</span></div>
+      <div class="method-row"><span class="vis">+</span><span class="method-name">updateProfil()</span><span class="method-ret">: void</span></div>
+      <div class="method-row"><span class="vis">+</span><span class="method-name">getLowongan()</span><span class="method-ret">: List</span></div>
+    </div>
+  </div>
+
+  <!-- ===== LOWONGAN ===== -->
+  <div class="cls" id="cls-lowongan" style="left:60px; top:840px; min-width:215px;">
+    <div class="cls-name">Lowongan</div>
+    <div class="cls-section">
+      <div class="sec-label">Attributes</div>
+      <div class="cls-row"><span class="vis">-</span><span class="attr-name underline">id_lowongan</span><span class="attr-type">: String</span></div>
+      <div class="cls-row"><span class="vis">-</span><span class="attr-name">id_perusahaan</span><span class="attr-type">: String</span></div>
+      <div class="cls-row"><span class="vis">-</span><span class="attr-name">judul</span><span class="attr-type">: String</span></div>
+      <div class="cls-row"><span class="vis">-</span><span class="attr-name">deskripsi</span><span class="attr-type">: String</span></div>
+      <div class="cls-row"><span class="vis">-</span><span class="attr-name">kualifikasi</span><span class="attr-type">: String</span></div>
+      <div class="cls-row"><span class="vis">-</span><span class="attr-name">tanggal_buka</span><span class="attr-type">: Date</span></div>
+      <div class="cls-row"><span class="vis">-</span><span class="attr-name">tanggal_tutup</span><span class="attr-type">: Date</span></div>
+      <div class="cls-row"><span class="vis">-</span><span class="attr-name">status</span><span class="attr-type">: String</span></div>
+    </div>
+    <div class="cls-section">
+      <div class="sec-label">Methods</div>
+      <div class="method-row"><span class="vis">+</span><span class="method-name">tambahLowongan()</span><span class="method-ret">: void</span></div>
+      <div class="method-row"><span class="vis">+</span><span class="method-name">editLowongan()</span><span class="method-ret">: void</span></div>
+      <div class="method-row"><span class="vis">+</span><span class="method-name">hapusLowongan()</span><span class="method-ret">: void</span></div>
+      <div class="method-row"><span class="vis">+</span><span class="method-name">getLowongan()</span><span class="method-ret">: List</span></div>
+    </div>
+  </div>
+
+  <!-- ===== NOTIFIKASI ===== -->
+  <div class="cls" id="cls-notif" style="left:430px; top:680px; min-width:210px;">
+    <div class="cls-name">Notifikasi</div>
+    <div class="cls-section">
+      <div class="sec-label">Attributes</div>
+      <div class="cls-row"><span class="vis">-</span><span class="attr-name underline">id_notifikasi</span><span class="attr-type">: String</span></div>
+      <div class="cls-row"><span class="vis">-</span><span class="attr-name">id_user</span><span class="attr-type">: String</span></div>
+      <div class="cls-row"><span class="vis">-</span><span class="attr-name">judul</span><span class="attr-type">: String</span></div>
+      <div class="cls-row"><span class="vis">-</span><span class="attr-name">isi</span><span class="attr-type">: String</span></div>
+      <div class="cls-row"><span class="vis">-</span><span class="attr-name">tanggal</span><span class="attr-type">: Date</span></div>
+    </div>
+    <div class="cls-section">
+      <div class="sec-label">Methods</div>
+      <div class="method-row"><span class="vis">+</span><span class="method-name">kirimNotifikasi()</span><span class="method-ret">: void</span></div>
+      <div class="method-row"><span class="vis">+</span><span class="method-name">getNotifikasi()</span><span class="method-ret">: List</span></div>
+    </div>
+  </div>
+
+</div><!-- end canvas -->
+
+<!-- Legend -->
+<div class="legend">
+  <strong>Keterangan:</strong>
+  <span><strong>+ </strong> public</span>
+  <span><strong>- </strong> private</span>
+  <span><u>attr</u> = Primary Key</span>
+  <span class="leg-line">
+    <svg width="36" height="12"><line x1="0" y1="6" x2="36" y2="6" stroke="#1e293b" stroke-width="2"/><polygon points="28,2 36,6 28,10" fill="#1e293b"/></svg>
+    Asosiasi (1 arah)
+  </span>
+  <span class="leg-line">
+    <svg width="36" height="12"><line x1="0" y1="6" x2="36" y2="6" stroke="#6366f1" stroke-width="2" stroke-dasharray="4,2"/><polygon points="28,2 36,6 28,10" fill="#6366f1"/></svg>
+    Dependensi / FK
+  </span>
+  <span class="leg-line">
+    <svg width="36" height="12"><line x1="0" y1="6" x2="36" y2="6" stroke="#10b981" stroke-width="2"/><polygon points="0,2 0,10 8,6" fill="none" stroke="#10b981" stroke-width="1.5"/></svg>
+    Komposisi (1:N)
+  </span>
+</div>
+
+<script>
+  function rect(el, canvas) {
+    const e = el.getBoundingClientRect();
+    const c = canvas.getBoundingClientRect();
+    return {
+      x:  e.left - c.left + e.width / 2,
+      y:  e.top  - c.top  + e.height / 2,
+      t:  e.top    - c.top,
+      b:  e.bottom - c.top,
+      l:  e.left   - c.left,
+      r:  e.right  - c.left,
+      w:  e.width,
+      h:  e.height,
+    };
+  }
+
+  function anchor(a, b) {
+    const dx = b.x - a.x, dy = b.y - a.y;
+    if (Math.abs(dx) >= Math.abs(dy)) {
+      return dx > 0
+        ? [{ x: a.r, y: a.y }, { x: b.l, y: b.y }]
+        : [{ x: a.l, y: a.y }, { x: b.r, y: b.y }];
+    } else {
+      return dy > 0
+        ? [{ x: a.x, y: a.b }, { x: b.x, y: b.t }]
+        : [{ x: a.x, y: a.t }, { x: b.x, y: b.b }];
+    }
+  }
+
+  let markerCount = 0;
+  function addMarker(svg, color, open) {
+    const id = "m" + (markerCount++);
+    const defs = svg.querySelector("defs") || svg.insertBefore(
+      document.createElementNS("http://www.w3.org/2000/svg","defs"), svg.firstChild);
+    const mk = document.createElementNS("http://www.w3.org/2000/svg","marker");
+    mk.setAttribute("id", id);
+    mk.setAttribute("markerWidth","9"); mk.setAttribute("markerHeight","9");
+    mk.setAttribute("refX","7"); mk.setAttribute("refY","4.5");
+    mk.setAttribute("orient","auto");
+    const p = document.createElementNS("http://www.w3.org/2000/svg","polygon");
+    if (open) {
+      p.setAttribute("points","0,0 0,9 9,4.5");
+      p.setAttribute("fill","none");
+      p.setAttribute("stroke", color);
+      p.setAttribute("stroke-width","1.5");
+    } else {
+      p.setAttribute("points","0,0 0,9 9,4.5");
+      p.setAttribute("fill", color);
+    }
+    mk.appendChild(p); defs.appendChild(mk);
+    return id;
+  }
+
+  function drawLine(svg, p1, p2, color, dash, label, openArrow) {
+    const mid = { x: (p1.x+p2.x)/2, y: (p1.y+p2.y)/2 };
+    const mkId = addMarker(svg, color, openArrow);
+
+    const path = document.createElementNS("http://www.w3.org/2000/svg","path");
+    const cx1 = p1.x + (p2.x-p1.x)*0.5, cy1 = p1.y;
+    const cx2 = p1.x + (p2.x-p1.x)*0.5, cy2 = p2.y;
+    path.setAttribute("d",`M${p1.x} ${p1.y} C${cx1} ${cy1} ${cx2} ${cy2} ${p2.x} ${p2.y}`);
+    path.setAttribute("stroke", color);
+    path.setAttribute("stroke-width","1.8");
+    path.setAttribute("fill","none");
+    if (dash) path.setAttribute("stroke-dasharray", dash);
+    path.setAttribute("marker-end",`url(#${mkId})`);
+    svg.appendChild(path);
+
+    if (label) {
+      const fo = document.createElementNS("http://www.w3.org/2000/svg","foreignObject");
+      fo.setAttribute("x", mid.x-22); fo.setAttribute("y", mid.y-10);
+      fo.setAttribute("width","50"); fo.setAttribute("height","20");
+      fo.innerHTML=`<div xmlns="http://www.w3.org/1999/xhtml" style="font-size:10px;font-weight:700;color:#fff;background:${color};padding:1px 5px;border-radius:3px;text-align:center;">${label}</div>`;
+      svg.appendChild(fo);
+    }
+  }
+
+  window.addEventListener("load", () => {
+    const canvas = document.getElementById("canvas");
+    const svg    = document.getElementById("svg");
+
+    const user      = rect(document.getElementById("cls-user"),      canvas);
+    const lulusan   = rect(document.getElementById("cls-lulusan"),   canvas);
+    const jurusan   = rect(document.getElementById("cls-jurusan"),   canvas);
+    const tracer    = rect(document.getElementById("cls-tracer"),    canvas);
+    const perusahaan= rect(document.getElementById("cls-perusahaan"),canvas);
+    const lowongan  = rect(document.getElementById("cls-lowongan"),  canvas);
+    const notif     = rect(document.getElementById("cls-notif"),     canvas);
+
+    // User ──1──► Lulusan  (asosiasi, user memiliki akun lulusan)
+    let [p1,p2] = anchor(user, lulusan);
+    drawLine(svg, p1, p2, "#1e293b", null, "1", false);
+
+    // User ──1──► Perusahaan
+    ;[p1,p2] = anchor(user, perusahaan);
+    drawLine(svg, p1, p2, "#1e293b", null, "1", false);
+
+    // Lulusan ──1──► TracerStudy  (komposisi)
+    ;[p1,p2] = anchor(lulusan, tracer);
+    drawLine(svg, p1, p2, "#6366f1", "5,3", "1", true);
+
+    // Lulusan ──M──► Notifikasi  (menerima)
+    ;[p1,p2] = anchor(lulusan, notif);
+    drawLine(svg, p1, p2, "#f59e0b", null, "1..M", false);
+
+    // Lulusan ──M──► Jurusan  (berasal dari)
+    ;[p1,p2] = anchor(lulusan, jurusan);
+    drawLine(svg, p1, p2, "#10b981", null, "M..1", false);
+
+    // Perusahaan ──1──► Lowongan  (membuka)
+    ;[p1,p2] = anchor(perusahaan, lowongan);
+    drawLine(svg, p1, p2, "#10b981", null, "1..M", false);
+  });
+</script>
+</body>
+</html>

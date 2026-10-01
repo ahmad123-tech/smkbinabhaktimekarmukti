@@ -1,0 +1,86 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+
+actor "Super Admin" as SA
+actor "Admin / BKK" as Admin
+actor "Lulusan" as Lulusan
+actor "Perusahaan (Mitra DUDI)" as Perusahaan
+actor "Kepala Sekolah" as Kepsek
+
+rectangle "Sistem Informasi Keterserapan Lulusan & Bursa Kerja (BKK)" {
+  ' Fitur Umum
+  usecase "Login / Autentikasi" as UC_Login
+  
+  ' Super Admin
+  usecase "Kelola Akun (Users)" as UC_SA1
+  usecase "Kelola Data Jurusan" as UC_SA2
+  usecase "Pantau Data BKK & Tracer (Read-Only)" as UC_SA3
+  usecase "Export Data Laporan" as UC_SA4
+
+  ' Admin
+  usecase "Kelola Data Lulusan (CRUD & Import)" as UC_A1
+  usecase "Verifikasi & Kelola Tracer Study" as UC_A2
+  usecase "Kelola Kerjasama Perusahaan" as UC_A3
+  usecase "Kelola Lowongan Kerja BKK" as UC_A4
+  usecase "Kirim Notifikasi WA (Broadcast)" as UC_A5
+
+  ' Lulusan
+  usecase "Update Profil Lulusan" as UC_L1
+  usecase "Isi Kuesioner Tracer Study" as UC_L2
+  usecase "Cari & Lihat Lowongan" as UC_L3
+  usecase "Melamar Pekerjaan" as UC_L4
+  usecase "Lihat Status Lamaran" as UC_L5
+
+  ' Perusahaan
+  usecase "Update Profil Perusahaan" as UC_P1
+  usecase "Posting Lowongan Kerja" as UC_P2
+  usecase "Kelola Lowongan Sendiri" as UC_P3
+  usecase "Lihat Data Pelamar" as UC_P4
+  
+  ' Kepala Sekolah
+  usecase "Lihat Dashboard Statistik" as UC_K1
+  usecase "Lihat Peta Persebaran Tracer" as UC_K2
+  usecase "Cetak / Unduh Laporan" as UC_K3
+}
+
+' Relasi Login
+SA --> UC_Login
+Admin --> UC_Login
+Lulusan --> UC_Login
+Perusahaan --> UC_Login
+Kepsek --> UC_Login
+
+' Relasi Super Admin
+SA --> UC_SA1
+SA --> UC_SA2
+SA --> UC_SA3
+SA --> UC_SA4
+
+' Relasi Admin
+Admin --> UC_A1
+Admin --> UC_A2
+Admin --> UC_A3
+Admin --> UC_A4
+Admin --> UC_A5
+Admin --> UC_SA4 : (Juga bisa export)
+
+' Relasi Lulusan
+Lulusan --> UC_L1
+Lulusan --> UC_L2
+Lulusan --> UC_L3
+Lulusan --> UC_L4
+Lulusan --> UC_L5
+UC_L4 ..> UC_L3 : <<include>>
+
+' Relasi Perusahaan
+Perusahaan --> UC_P1
+Perusahaan --> UC_P2
+Perusahaan --> UC_P3
+Perusahaan --> UC_P4
+
+' Relasi Kepala Sekolah
+Kepsek --> UC_K1
+Kepsek --> UC_K2
+Kepsek --> UC_K3
+@enduml

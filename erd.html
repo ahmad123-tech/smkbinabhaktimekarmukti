@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ERD - Sistem Informasi Keterserapan Lulusan & Bursa Kerja</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f4f8;
+      padding: 40px 20px;
+      min-height: 100vh;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 18px;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 6px;
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 13px;
+      color: #64748b;
+      margin-bottom: 40px;
+    }
+
+    /* Canvas area */
+    .erd-canvas {
+      position: relative;
+      width: 1200px;
+      height: 860px;
+      margin: 0 auto;
+    }
+
+    svg.lines {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      overflow: visible;
+    }
+
+    /* Table card */
+    .table-card {
+      position: absolute;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+      min-width: 210px;
+      overflow: hidden;
+      border: 1.5px solid #e2e8f0;
+    }
+
+    .table-header {
+      padding: 10px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.3px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .table-header .icon { font-size: 15px; }
+
+    .table-body { padding: 6px 0; }
+
+    .field-row {
+      display: flex;
+      align-items: center;
+      padding: 5px 14px;
+      font-size: 12px;
+      color: #334155;
+      gap: 8px;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .field-row:last-child { border-bottom: none; }
+
+    .field-row:hover { background: #f8fafc; }
+
+    .badge {
+      font-size: 10px;
+      font-weight: 600;
+      padding: 1px 5px;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+
+    .pk  { background: #fef3c7; color: #92400e; }
+    .fk  { background: #dbeafe; color: #1e40af; }
+    .uq  { background: #f3e8ff; color: #6b21a8; }
+
+    .field-name { flex: 1; font-weight: 500; }
+    .field-type { color: #94a3b8; font-size: 11px; }
+
+    /* Color themes per table */
+    .color-user     { background: #6366f1; }
+    .color-jurusan  { background: #10b981; }
+    .color-lulusan  { background: #3b82f6; }
+    .color-tracer   { background: #f59e0b; }
+    .color-perusahaan { background: #ef4444; }
+    .color-lowongan { background: #8b5cf6; }
+    .color-lamaran  { background: #06b6d4; }
+
+    /* Enum box */
+    .enum-box {
+      position: absolute;
+      background: #fff;
+      border: 1.5px dashed #cbd5e1;
+      border-radius: 10px;
+      min-width: 170px;
+      overflow: hidden;
+    }
+
+    .enum-header {
+      background: #475569;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .enum-value {
+      padding: 4px 14px;
+      font-size: 11.5px;
+      color: #475569;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .enum-value:last-child { border-bottom: none; }
+
+    /* Relation label */
+    .rel-label {
+      position: absolute;
+      font-size: 10px;
+      font-weight: 600;
+      color: #64748b;
+      background: #f8fafc;
+      padding: 1px 5px;
+      border-radius: 4px;
+      border: 1px solid #e2e8f0;
+      pointer-events: none;
+    }
+
+    /* Legend */
+    .legend {
+      width: 1200px;
+      margin: 24px auto 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+      background: #fff;
+      border-radius: 10px;
+      padding: 14px 20px;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.07);
+      border: 1px solid #e2e8f0;
+    }
+
+    .legend-title { font-size: 12px; font-weight: 700; color: #334155; margin-right: 4px; }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: #475569;
+    }
+
+    .legend-line {
+      width: 28px;
+      height: 2px;
+    }
+
+    .legend-badge { font-size: 10px; font-weight: 600; padding: 2px 6px; border-radius: 4px; }
+  </style>
+</head>
+<body>
+
+  <h1>Entity Relationship Diagram (ERD)</h1>
+  <p class="subtitle">Sistem Informasi Keterserapan Lulusan &amp; Bursa Kerja — SMK Bina Bhakti</p>
+
+  <div class="erd-canvas" id="canvas">
+
+    <!-- SVG Lines -->
+    <svg class="lines" id="svg-lines"></svg>
+
+    <!-- ===== USER ===== -->
+    <div class="table-card" id="tbl-user" style="left:470px; top:20px;">
+      <div class="table-header color-user"><span class="icon">👤</span> User</div>
+      <div class="table-body">
+        <div class="field-row"><span class="badge pk">PK</span><span class="field-name">id</span><span class="field-type">String</span></div>
+        <div class="field-row"><span class="badge uq">UQ</span><span class="field-name">email</span><span class="field-type">String</span></div>
+        <div class="field-row"><span class="field-name" style="margin-left:36px">password</span><span class="field-type">String</span></div>
+        <div class="field-row"><span class="field-name" style="margin-left:36px">role</span><span class="field-type">Role (enum)</span></div>
+        <div class="field-row"><span class="field-name" style="margin-left:36px">createdAt</span><span class="field-type">DateTime</span></div>
+      </div>
+    </div>
+
+    <!-- ===== JURUSAN ===== -->
+    <div class="table-card" id="tbl-jurusan" style="left:20px; top:20px;">
+      <div class="table-header color-jurusan"><span class="icon">📚</span> Jurusan</div>
+      <div class="table-body">
+        <div class="field-row"><span class="badge pk">PK</span><span class="field-name">id</span><span class="field-type">String</span></div>
+        <div class="field-row"><span class="badge uq">UQ</span><span class="field-name">nama</span><span class="field-type">String</span></div>
+      </div>
+    </div>
+
+    <!-- ===== LULUSAN ===== -->
+    <div class="table-card" id="tbl-lulusan" style="left:200px; top:240px;">
+      <div class="table-header color-lulusan"><span class="icon">🎓</span> Lulusan</div>
+      <div class="table-body">
+        <div class="field-row"><span class="badge pk">PK</span><span class="field-name">id</span><span class="field-type">String</span></div>
+        <div class="field-row"><span class="badge fk">FK</span><span class="field-name">userId</span><span class="field-type">String (UQ)</span></div>
+        <div class="field-row"><span class="badge fk">FK</span><span class="field-name">jurusanId</span><span class="field-type">String</span></div>
+        <div class="field-row"><span class="badge uq">UQ</span><span class="field-name">nis</span><span class="field-type">String</span></div>
+        <div class="field-row"><span class="field-name" style="margin-left:36px">nama</span><span class="field-type">String</span></div>
+        <div class="field-row"><span class="field-name" style="margin-left:36px">tahunLulus</span><span class="field-type">Int</span></div>
+        <div class="field-row"><span class="field-name" style="margin-left:36px">noHp</span><span class="field-type">String?</span></div>
+        <div class="field-row"><span class="field-name" style="margin-left:36px">alamat</span><span class="field-type">String?</span></div>
+        <div class="field-row"><span class="field-name" style="margin-left:36px">createdAt</span><span class="field-type">DateTime</span></div>
+      </div>
+    </div>
+
+    <!-- ===== TRACER STUDY ===== -->
+    <div class="table-card" id="tbl-tracer" style="left:20px; top:420px;">
+      <div class="table-header color-tracer"><span class="icon">📋</span> TracerStudy</div>
+      <div class="table-body">
+        <div class="field-row"><span class="badge pk">PK</span><span class="field-name">id</span><span class="field-type">String</span></div>
+        <div class="field-row"><span class="badge fk">FK</span><span class="field-name">lulusanId</span><span class="field-type">String (UQ)</span></div>
+        <div class="field-row"><span class="field-name" style="margin-left:36px">status</span><span class="field-type">StatusLulusan</span></div>
+        <div class="field-row"><span class="field-name" style="margin-left:36px">namaPerusahaan</span><span class="field-type">String?</span></div>
+        <div class="field-row"><span class="field-name" style="margin-left:36px">jabatan</span><span class="field-type">String?</span></div>
+        <div class="field-row"><span class="field-name" style="margin-left:36px">gaji</span><span class="field-type">Int?</span></div>
+        <div class="field-row"><span class="field-name" style="margin-left:36px">lokasiKerja</span><span class="field-type">String?</span></div>
+        <div class="field-row"><span class="field-name" style="margin-left:36px">latitude</span><span class="field-type">Float?</span></div>
+        <div class="field-row"><span class="field-name" style="margin-left:36px">longitude</span><span class="field-type">Float?</span></div>
+        <div class="field-row"><span class="field-name" style="margin-left:36px">namaKampus</span><span class="field-type">String?</span></div>
+        <div class="field-row"><span class="field-name" style="margin-left:36px">namaUsaha</span><span class="field-type">String?</span></div>
+        <div class="field-row"><span class="field-name" style="margin-left:36px">keterangan</span><span class="field-type">String?</span></div>
+        <div class="field-row"><span class="field-name" style="margin-left:36px">createdAt</span><span class="field-type">DateTime</span></div>
+        <div class="field-row"><span class="field-name" style="margin-left:36px">updatedAt</span><span class="field-type">DateTime</span></div>
+      </div>
+    </div>
+
+    <!-- ===== PERUSAHAAN ===== -->
+    <div class="table-card" id="tbl-perusahaan" style="left:730px; top:240px;">
+      <div class="table-header color-perusahaan"><span class="icon">🏢</span> Perusahaan</div>
+      <div class="table-body">
+        <div class="field-row"><span class="badge pk">PK</span><span class="field-name">id</span><span class="field-type">String</span></div>
+        <div class="field-row"><span class="badge fk">FK</span><span class="field-name">userId</span><span class="field-type">String (UQ)</span></div>
+        <div class="field-row"><span class="field-name" style="margin-left:36px">nama</span><span class="field-type">String</span></div>
+        <div class="field-row"><span class="field-name" style="margin-left:36px">bidang</span><span class="field-type">String?</span></div>
+        <div class="field-row"><span class="field-name" style="margin-left:36px">alamat</span><span class="field-type">String?</span></div>
+        <div class="field-row"><span class="field-name" style="margin-left:36px">kota</span><span class="field-type">String?</span></div>
+        <div class="field-row"><span class="field-name" style="margin-left:36px">telepon</span><span class="field-type">String?</span></div>
+        <div class="field-row"><span class="field-name" style="margin-left:36px">website</span><span class="field-type">String?</span></div>
+        <div class="field-row"><span class="field-name" style="margin-left:36px">deskripsi</span><span class="field-type">String?</span></div>
+        <div class="field-row"><span class="field-name" style="margin-left:36px">latitude</span><span class="field-type">Float?</span></div>
+        <div class="field-row"><span class="field-name" style="margin-left:36px">longitude</span><span class="field-type">Float?</span></div>
+        <div class="field-row"><span class="field-name" style="margin-left:36px">createdAt</span><span class="field-type">DateTime</span></div>
+      </div>
+    </div>
+
+    <!-- ===== LOWONGAN ===== -->
+    <div class="table-card" id="tbl-lowongan" style="left:700px; top:530px;">
+      <div class="table-header color-lowongan"><span class="icon">💼</span> Lowongan</div>
+      <div class="table-body">
+        <div class="field-row"><span class="badge pk">PK</span><span class="field-name">id</span><span class="field-type">String</span></div>
+        <div class="field-row"><span class="badge fk">FK</span><span class="field-name">perusahaanId</span><span class="field-type">String</span></div>
+        <div class="field-row"><span class="badge fk">FK</span><span class="field-name">jurusanId</span><span class="field-type">String?</span></div>
+        <div class="field-row"><span class="field-name" style="margin-left:36px">judul</span><span class="field-type">String</span></div>
+        <div class="field-row"><span class="field-name" style="margin-left:36px">deskripsi</span><span class="field-type">String</span></div>
+        <div class="field-row"><span class="field-name" style="margin-left:36px">persyaratan</span><span class="field-type">String?</span></div>
+        <div class="field-row"><span class="field-name" style="margin-left:36px">gaji</span><span class="field-type">String?</span></div>
+        <div class="field-row"><span class="field-name" style="margin-left:36px">deadline</span><span class="field-type">DateTime?</span></div>
+        <div class="field-row"><span class="field-name" style="margin-left:36px">isActive</span><span class="field-type">Boolean</span></div>
+        <div class="field-row"><span class="field-name" style="margin-left:36px">createdAt</span><span class="field-type">DateTime</span></div>
+      </div>
+    </div>
+
+    <!-- ===== LAMARAN ===== -->
+    <div class="table-card" id="tbl-lamaran" style="left:430px; top:620px;">
+      <div class="table-header color-lamaran"><span class="icon">📝</span> Lamaran</div>
+      <div class="table-body">
+        <div class="field-row"><span class="badge pk">PK</span><span class="field-name">id</span><span class="field-type">String</span></div>
+        <div class="field-row"><span class="badge fk">FK</span><span class="field-name">lulusanId</span><span class="field-type">String</span></div>
+        <div class="field-row"><span class="badge fk">FK</span><span class="field-name">lowonganId</span><span class="field-type">String</span></div>
+        <div class="field-row"><span class="field-name" style="margin-left:36px">status</span><span class="field-type">String</span></div>
+        <div class="field-row"><span class="field-name" style="margin-left:36px">createdAt</span><span class="field-type">DateTime</span></div>
+      </div>
+    </div>
+
+    <!-- ===== ENUM: Role ===== -->
+    <div class="enum-box" id="enum-role" style="left:960px; top:20px;">
+      <div class="enum-header">⚙️ &lt;&lt;enum&gt;&gt; Role</div>
+      <div class="enum-value">SUPER_ADMIN</div>
+      <div class="enum-value">ADMIN</div>
+      <div class="enum-value">LULUSAN</div>
+      <div class="enum-value">PERUSAHAAN</div>
+      <div class="enum-value">KEPALA_SEKOLAH</div>
+    </div>
+
+    <!-- ===== ENUM: StatusLulusan ===== -->
+    <div class="enum-box" id="enum-status" style="left:960px; top:200px;">
+      <div class="enum-header">⚙️ &lt;&lt;enum&gt;&gt; StatusLulusan</div>
+      <div class="enum-value">BEKERJA</div>
+      <div class="enum-value">KULIAH</div>
+      <div class="enum-value">WIRAUSAHA</div>
+      <div class="enum-value">BELUM_BEKERJA</div>
+    </div>
+
+  </div><!-- end canvas -->
+
+  <!-- Legend -->
+  <div class="legend">
+    <span class="legend-title">Keterangan:</span>
+    <div class="legend-item"><span class="legend-badge pk">PK</span> Primary Key</div>
+    <div class="legend-item"><span class="legend-badge fk">FK</span> Foreign Key</div>
+    <div class="legend-item"><span class="legend-badge uq">UQ</span> Unique</div>
+    <div class="legend-item">
+      <svg width="28" height="10"><line x1="0" y1="5" x2="28" y2="5" stroke="#6366f1" stroke-width="2"/></svg>
+      Relasi 1-to-1
+    </div>
+    <div class="legend-item">
+      <svg width="28" height="10"><line x1="0" y1="5" x2="28" y2="5" stroke="#10b981" stroke-width="2" stroke-dasharray="4,2"/></svg>
+      Relasi 1-to-Many
+    </div>
+    <div class="legend-item">
+      <svg width="28" height="10"><line x1="0" y1="5" x2="28" y2="5" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3,3"/></svg>
+      Referensi Enum
+    </div>
+  </div>
+
+  <script>
+    // Helper: get center point of an element relative to canvas
+    function getCenter(el, canvas) {
+      const er = el.getBoundingClientRect();
+      const cr = canvas.getBoundingClientRect();
+      return {
+        x: er.left - cr.left + er.width / 2,
+        y: er.top  - cr.top  + er.height / 2,
+        top:    er.top  - cr.top,
+        bottom: er.bottom - cr.top,
+        left:   er.left - cr.left,
+        right:  er.right - cr.left,
+        w: er.width,
+        h: er.height,
+      };
+    }
+
+    // Find best anchor points between two boxes
+    function bestAnchors(a, b) {
+      // horizontal or vertical?
+      const dx = b.x - a.x;
+      const dy = b.y - a.y;
+      if (Math.abs(dx) >= Math.abs(dy)) {
+        // horizontal
+        if (dx > 0) return [{ x: a.right, y: a.y }, { x: b.left, y: b.y }];
+        else        return [{ x: a.left,  y: a.y }, { x: b.right, y: b.y }];
+      } else {
+        // vertical
+        if (dy > 0) return [{ x: a.x, y: a.bottom }, { x: b.x, y: b.top }];
+        else        return [{ x: a.x, y: a.top    }, { x: b.x, y: b.bottom }];
+      }
+    }
+
+    function drawLine(svg, p1, p2, color, dash, label, canvas) {
+      const mx = (p1.x + p2.x) / 2;
+      const my = (p1.y + p2.y) / 2;
+
+      // Curved path
+      const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      const cx1 = p1.x + (p2.x - p1.x) * 0.5;
+      const cy1 = p1.y;
+      const cx2 = p1.x + (p2.x - p1.x) * 0.5;
+      const cy2 = p2.y;
+      path.setAttribute("d", `M ${p1.x} ${p1.y} C ${cx1} ${cy1}, ${cx2} ${cy2}, ${p2.x} ${p2.y}`);
+      path.setAttribute("stroke", color);
+      path.setAttribute("stroke-width", "1.8");
+      path.setAttribute("fill", "none");
+      if (dash) path.setAttribute("stroke-dasharray", dash);
+
+      // Arrow marker
+      const markerId = "arrow-" + Math.random().toString(36).substr(2,5);
+      const defs = svg.querySelector("defs") || svg.appendChild(document.createElementNS("http://www.w3.org/2000/svg","defs"));
+      const marker = document.createElementNS("http://www.w3.org/2000/svg","marker");
+      marker.setAttribute("id", markerId);
+      marker.setAttribute("markerWidth","8"); marker.setAttribute("markerHeight","8");
+      marker.setAttribute("refX","6"); marker.setAttribute("refY","3");
+      marker.setAttribute("orient","auto");
+      const arrowPath = document.createElementNS("http://www.w3.org/2000/svg","path");
+      arrowPath.setAttribute("d","M0,0 L0,6 L8,3 z");
+      arrowPath.setAttribute("fill", color);
+      marker.appendChild(arrowPath);
+      defs.appendChild(marker);
+      path.setAttribute("marker-end", `url(#${markerId})`);
+
+      svg.appendChild(path);
+
+      // Label
+      if (label) {
+        const fo = document.createElementNS("http://www.w3.org/2000/svg","foreignObject");
+        fo.setAttribute("x", mx - 20); fo.setAttribute("y", my - 10);
+        fo.setAttribute("width","60"); fo.setAttribute("height","20");
+        fo.innerHTML = `<div xmlns="http://www.w3.org/1999/xhtml" style="font-size:10px;font-weight:600;color:#64748b;background:#f8fafc;padding:1px 4px;border-radius:3px;border:1px solid #e2e8f0;text-align:center;">${label}</div>`;
+        svg.appendChild(fo);
+      }
+    }
+
+    window.addEventListener("load", () => {
+      const canvas = document.getElementById("canvas");
+      const svg = document.getElementById("svg-lines");
+
+      const user      = getCenter(document.getElementById("tbl-user"), canvas);
+      const jurusan   = getCenter(document.getElementById("tbl-jurusan"), canvas);
+      const lulusan   = getCenter(document.getElementById("tbl-lulusan"), canvas);
+      const tracer    = getCenter(document.getElementById("tbl-tracer"), canvas);
+      const perusahaan= getCenter(document.getElementById("tbl-perusahaan"), canvas);
+      const lowongan  = getCenter(document.getElementById("tbl-lowongan"), canvas);
+      const lamaran   = getCenter(document.getElementById("tbl-lamaran"), canvas);
+      const enumRole  = getCenter(document.getElementById("enum-role"), canvas);
+      const enumStatus= getCenter(document.getElementById("enum-status"), canvas);
+
+      // User → Lulusan (1-to-1)
+      let [p1,p2] = bestAnchors(user, lulusan);
+      drawLine(svg, p1, p2, "#6366f1", null, "1:1", canvas);
+
+      // User → Perusahaan (1-to-1)
+      ;[p1,p2] = bestAnchors(user, perusahaan);
+      drawLine(svg, p1, p2, "#6366f1", null, "1:1", canvas);
+
+      // Jurusan → Lulusan (1-to-many)
+      ;[p1,p2] = bestAnchors(jurusan, lulusan);
+      drawLine(svg, p1, p2, "#10b981", "5,3", "1:N", canvas);
+
+      // Jurusan → Lowongan (1-to-many)
+      ;[p1,p2] = bestAnchors(jurusan, lowongan);
+      drawLine(svg, p1, p2, "#10b981", "5,3", "1:N", canvas);
+
+      // Lulusan → TracerStudy (1-to-1)
+      ;[p1,p2] = bestAnchors(lulusan, tracer);
+      drawLine(svg, p1, p2, "#6366f1", null, "1:1", canvas);
+
+      // Lulusan → Lamaran (1-to-many)
+      ;[p1,p2] = bestAnchors(lulusan, lamaran);
+      drawLine(svg, p1, p2, "#10b981", "5,3", "1:N", canvas);
+
+      // Perusahaan → Lowongan (1-to-many)
+      ;[p1,p2] = bestAnchors(perusahaan, lowongan);
+      drawLine(svg, p1, p2, "#10b981", "5,3", "1:N", canvas);
+
+      // Lowongan → Lamaran (1-to-many)
+      ;[p1,p2] = bestAnchors(lowongan, lamaran);
+      drawLine(svg, p1, p2, "#10b981", "5,3", "1:N", canvas);
+
+      // User → enum Role (dashed)
+      ;[p1,p2] = bestAnchors(user, enumRole);
+      drawLine(svg, p1, p2, "#94a3b8", "3,3", null, canvas);
+
+      // TracerStudy → enum StatusLulusan (dashed)
+      ;[p1,p2] = bestAnchors(tracer, enumStatus);
+      drawLine(svg, p1, p2, "#94a3b8", "3,3", null, canvas);
+    });
+  </script>
+</body>
+</html>
